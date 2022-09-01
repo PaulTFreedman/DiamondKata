@@ -4,7 +4,7 @@ public class LineBuilder : ILineBuilder
 {
     private char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
-    public string BuildLine(char letter, int i)
+    public string BuildLine(char letter, int step)
     {
         var upperCase = char.ToUpper(letter);
 
@@ -14,29 +14,29 @@ public class LineBuilder : ILineBuilder
             throw new ArgumentException();
         }
 
-        var step = i;
-        if (i > index)
+        var i = step;
+        if (step > index)
         {
-            step = index + (index - i);
+            i = index + (index - step);
         }
 
-        if (step < 0)
+        if (i < 0)
         {
             throw new ArgumentOutOfRangeException();
         }
 
-        var outerGapCount = index - step;
-        var innerGapCount = Math.Max((2 * (step - 1)) + 1, 0);
+        var outerGapCount = index - i;
+        var innerGapCount = Math.Max((2 * (i - 1)) + 1, 0);
         var outerString = new string('_', outerGapCount);
         var innerString = new string('_', innerGapCount);
 
         string? line;
-        if (step == 0)
+        if (i == 0)
         {
-            line = outerString + alphabet[step] + outerString;
+            line = outerString + alphabet[i] + outerString;
         } else
         {
-            line = outerString + alphabet[step] + innerString + alphabet[step] + outerString;
+            line = outerString + alphabet[i] + innerString + alphabet[i] + outerString;
         }
 
         return line;

@@ -15,22 +15,22 @@ internal class LineBuilderTests
     [TestCase(2)]
     [TestCase(3)]
     [TestCase(4)]
-    public void BuildLine_ShouldReturnStringWithCorrectLengthForAllSteps(int i)
+    public void BuildLine_ShouldReturnStringWithCorrectLengthForAllSteps(int step)
     {
         var letter = 'C';
 
-        var result = _lineBuilder.BuildLine(letter, i);
+        var result = _lineBuilder.BuildLine(letter, step);
 
         Assert.That(result.Length, Is.EqualTo(5));
     }
 
     [TestCase(-1)]
     [TestCase(5)]
-    public void BuildLine_ShouldThrowIfStepOutsideValidRange(int i)
+    public void BuildLine_ShouldThrowIfStepOutsideValidRange(int step)
     {
         var letter = 'C';
 
-        Assert.Throws<ArgumentOutOfRangeException>(() => _lineBuilder.BuildLine(letter, i));
+        Assert.Throws<ArgumentOutOfRangeException>(() => _lineBuilder.BuildLine(letter, step));
     }
 
     [TestCase(' ')]
