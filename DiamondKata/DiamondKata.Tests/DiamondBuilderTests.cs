@@ -27,6 +27,22 @@ internal class DiamondBuilderTests
         Assert.That(lines.Length, Is.EqualTo(expectedRowCount));
     }
 
+    [Test]
+    public void BuildDiamond_ShouldProduceCorrectOutput()
+    {
+        _lineBuilder.Setup(x => x.BuildLine('A', 2, 0)).Returns("__A__");
+        _lineBuilder.Setup(x => x.BuildLine('B', 2, 1)).Returns("_B_B_");
+        _lineBuilder.Setup(x => x.BuildLine('C', 2, 2)).Returns("C___C");
+        _lineBuilder.Setup(x => x.BuildLine('B', 2, 3)).Returns("_B_B_");
+        _lineBuilder.Setup(x => x.BuildLine('A', 2, 4)).Returns("__A__");
+
+        var result = _diamondBuilder.BuildDiamond('C');
+
+        var expected = "__A__\n_B_B_\nC___C\n_B_B_\n__A__";
+
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
     [TestCase(' ')]
     [TestCase('@')]
     [TestCase('4')]

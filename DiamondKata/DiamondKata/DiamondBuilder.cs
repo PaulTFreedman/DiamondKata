@@ -25,7 +25,13 @@ public class DiamondBuilder : IDiamondBuilder
 
         while (step < lineCount)
         {
-            result += (step == 0 ? string.Empty : "\n") + _lineBuilder.BuildLine(upperCase, index, step);
+            var i = step;
+            if (step > index)
+            {
+                i = index + (index - step);
+            }
+
+            result += (step == 0 ? string.Empty : "\n") + _lineBuilder.BuildLine(alphabet[i], index, step);
 
             step++;
         }
