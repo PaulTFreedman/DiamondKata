@@ -45,3 +45,4 @@ From root of repository:
 ### Possible Improvements
 - Use IoC rather than concrete objects in Program.cs
 - Cover Program.cs with component tests
+- Move console input validation into separate class
