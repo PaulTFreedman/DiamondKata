@@ -6,23 +6,31 @@ public class LineBuilder : ILineBuilder
 
     public string BuildLine(char letter, int i)
     {
-        // TODO some logic to convert incoming row number to a suitable i value
-        // e.g. for letter == 'C'  0->0, 1->1, 2->2, 3->1, 4->0
-
         var index = Array.IndexOf(alphabet, letter);
 
-        var outerGapCount = index - i;
-        var innerGapCount = Math.Max((2 * (i - 1)) + 1, 0);
+        var step = i;
+        if (i > index)
+        {
+            step = index + (index - i);
+        }
+
+        if (step < 0)
+        {
+            throw new ArgumentOutOfRangeException();
+        }
+
+        var outerGapCount = index - step;
+        var innerGapCount = Math.Max((2 * (step - 1)) + 1, 0);
         var outerString = new string('_', outerGapCount);
         var innerString = new string('_', innerGapCount);
 
         string? line;
-        if (i == 0)
+        if (step == 0)
         {
-            line = outerString + alphabet[i] + outerString;
+            line = outerString + alphabet[step] + outerString;
         } else
         {
-            line = outerString + alphabet[i] + innerString + alphabet[i] + outerString;
+            line = outerString + alphabet[step] + innerString + alphabet[step] + outerString;
         }
 
         return line;
