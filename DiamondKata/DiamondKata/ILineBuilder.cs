@@ -2,5 +2,5 @@
 
 public interface ILineBuilder
 {
-    string BuildLine(char character, int index, int step);
+    string BuildLine(char character, int index, int i);
 }

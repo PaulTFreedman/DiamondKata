@@ -31,7 +31,7 @@ public class DiamondBuilder : IDiamondBuilder
                 i = index + (index - step);
             }
 
-            result += (step == 0 ? string.Empty : "\n") + _lineBuilder.BuildLine(alphabet[i], index, step);
+            result += (step == 0 ? string.Empty : "\n") + _lineBuilder.BuildLine(alphabet[i], index, i);
 
             step++;
         }

@@ -2,15 +2,9 @@
 
 public class LineBuilder : ILineBuilder
 {
-    public string BuildLine(char character, int index, int step)
+    public string BuildLine(char character, int index, int i)
     {
-        var i = step;
-        if (step > index)
-        {
-            i = index + (index - step);
-        }
-
-        if (i < 0)
+        if (i < 0 || i > index)
         {
             throw new ArgumentOutOfRangeException();
         }
