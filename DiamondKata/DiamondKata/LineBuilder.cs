@@ -6,7 +6,13 @@ public class LineBuilder : ILineBuilder
 
     public string BuildLine(char letter, int i)
     {
-        var index = Array.IndexOf(alphabet, letter);
+        var upperCase = char.ToUpper(letter);
+
+        var index = Array.IndexOf(alphabet, upperCase);
+        if (index == -1)
+        {
+            throw new ArgumentException();
+        }
 
         var step = i;
         if (i > index)

@@ -15,7 +15,7 @@ internal class LineBuilderTests
     [TestCase(2)]
     [TestCase(3)]
     [TestCase(4)]
-    public void BuildLine_ShouldReturnStringWithCorrectLength(int i)
+    public void BuildLine_ShouldReturnStringWithCorrectLengthForAllSteps(int i)
     {
         var letter = 'C';
 
@@ -31,5 +31,24 @@ internal class LineBuilderTests
         var letter = 'C';
 
         Assert.Throws<ArgumentOutOfRangeException>(() => _lineBuilder.BuildLine(letter, i));
+    }
+
+    [TestCase(' ')]
+    [TestCase('@')]
+    [TestCase('4')]
+    public void BuildLine_ShouldThrowIfNonLetterCharProvided(char c)
+    {
+        Assert.Throws<ArgumentException>(() => _lineBuilder.BuildLine(c, 0));
+    }
+
+    [TestCase('a', 1)]
+    [TestCase('A', 1)]
+    [TestCase('z', 51)]
+    [TestCase('Z', 51)]
+    public void BuildLine_ShouldAllowUpperOrLowerCaseLetters(char c, int expectedLength)
+    {
+        var result = _lineBuilder.BuildLine(c, 0);
+
+        Assert.That(result.Length, Is.EqualTo(expectedLength));
     }
 }
