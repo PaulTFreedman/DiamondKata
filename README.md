@@ -30,14 +30,18 @@ It may be helpful visualise the whitespace in your rendering like this:
     _ _ A _ _
     
 ### Prerequisites
-TODO
+Install .NET 6
 
 ### Running Locally
 From root of repository:
 
-`dotnet run {letter}` e.g `dotnet run D`
+`dotnet run --project ./DiamondKata/DiamondKata/DiamondKata.csproj {letter}` e.g `dotnet run --project ./DiamondKata/DiamondKata/DiamondKata.csproj D`
 
 ### Running Tests
 From root of repository:
 
-`dotnet test`
+`dotnet test ./DiamondKata/`
+
+### Possible Improvements
+- Use IoC rather than concrete objects in Program.cs
+- Cover Program.cs with component tests
