@@ -10,45 +10,52 @@ internal class LineBuilderTests
         _lineBuilder = new LineBuilder();
     }
 
-    [TestCase(0)]
-    [TestCase(1)]
-    [TestCase(2)]
-    [TestCase(3)]
-    [TestCase(4)]
-    public void BuildLine_ShouldReturnStringWithCorrectLengthForAllSteps(int step)
+    [TestCase(2, 0)]
+    [TestCase(2, 1)]
+    [TestCase(2, 2)]
+    [TestCase(2, 3)]
+    [TestCase(2, 4)]
+    public void BuildLine_ShouldReturnStringWithCorrectLengthForAllSteps(int index, int step)
     {
         var letter = 'C';
 
-        var result = _lineBuilder.BuildLine(letter, step);
+        var result = _lineBuilder.BuildLine(letter, index, step);
 
         Assert.That(result.Length, Is.EqualTo(5));
     }
 
-    [TestCase(-1)]
-    [TestCase(5)]
-    public void BuildLine_ShouldThrowIfStepOutsideValidRange(int step)
+    [TestCase('A', "A")]
+    [TestCase('q', "q")]
+    [TestCase('~', "~")]
+    [TestCase('3', "3")]
+    [TestCase(' ', " ")]
+    public void BuildLine_ShouldAllowAnyCharacter(char c, string expectedResult)
+    {
+        var result = _lineBuilder.BuildLine(c, 0, 0);
+
+        Assert.That(result, Is.EqualTo(expectedResult));
+    }
+
+    [TestCase('A', 2, 0, "__A__")]
+    [TestCase('B', 2, 1, "_B_B_")]
+    [TestCase('C', 2, 2, "C___C")]
+    [TestCase('B', 2, 3, "_B_B_")]
+    [TestCase('A', 2, 4, "__A__")]
+    public void BuildLine_ShouldBuildLineCorrectly(char c, int index, int step, string expectedResult)
+    {
+        var result = _lineBuilder.BuildLine(c, index, step);
+
+        Assert.That(result, Is.EqualTo(expectedResult));
+    }
+
+    [TestCase(2, -1)]
+    [TestCase(2, 5)]
+    [TestCase(0, -1)]
+    [TestCase(0, 1)]
+    public void BuildLine_ShouldThrowIfStepOutsideValidRange(int index, int step)
     {
         var letter = 'C';
 
-        Assert.Throws<ArgumentOutOfRangeException>(() => _lineBuilder.BuildLine(letter, step));
-    }
-
-    [TestCase(' ')]
-    [TestCase('@')]
-    [TestCase('4')]
-    public void BuildLine_ShouldThrowIfNonLetterCharProvided(char c)
-    {
-        Assert.Throws<ArgumentException>(() => _lineBuilder.BuildLine(c, 0));
-    }
-
-    [TestCase('a', 1)]
-    [TestCase('A', 1)]
-    [TestCase('z', 51)]
-    [TestCase('Z', 51)]
-    public void BuildLine_ShouldAllowUpperOrLowerCaseLetters(char c, int expectedLength)
-    {
-        var result = _lineBuilder.BuildLine(c, 0);
-
-        Assert.That(result.Length, Is.EqualTo(expectedLength));
+        Assert.Throws<ArgumentOutOfRangeException>(() => _lineBuilder.BuildLine(letter, index, step));
     }
 }

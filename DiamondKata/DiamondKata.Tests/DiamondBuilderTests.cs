@@ -26,4 +26,25 @@ internal class DiamondBuilderTests
 
         Assert.That(lines.Length, Is.EqualTo(expectedRowCount));
     }
+
+    [TestCase(' ')]
+    [TestCase('@')]
+    [TestCase('4')]
+    public void BuildDiamond_ShouldThrowIfNonLetterCharProvided(char c)
+    {
+        Assert.Throws<ArgumentException>(() => _diamondBuilder.BuildDiamond(c));
+    }
+
+    [TestCase('a', 1)]
+    [TestCase('A', 1)]
+    [TestCase('z', 51)]
+    [TestCase('Z', 51)]
+    public void BuildDiamond_ShouldAllowUpperOrLowerCaseLetters(char c, int expectedRowCount)
+    {
+        var result = _diamondBuilder.BuildDiamond(c);
+
+        var lines = result.Split("\n");
+
+        Assert.That(lines.Length, Is.EqualTo(expectedRowCount));
+    }
 }

@@ -2,18 +2,8 @@
 
 public class LineBuilder : ILineBuilder
 {
-    private char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
-
-    public string BuildLine(char letter, int step)
+    public string BuildLine(char character, int index, int step)
     {
-        var upperCase = char.ToUpper(letter);
-
-        var index = Array.IndexOf(alphabet, upperCase);
-        if (index == -1)
-        {
-            throw new ArgumentException();
-        }
-
         var i = step;
         if (step > index)
         {
@@ -33,10 +23,10 @@ public class LineBuilder : ILineBuilder
         string? line;
         if (i == 0)
         {
-            line = outerString + alphabet[i] + outerString;
+            line = outerString + character + outerString;
         } else
         {
-            line = outerString + alphabet[i] + innerString + alphabet[i] + outerString;
+            line = outerString + character + innerString + character + outerString;
         }
 
         return line;

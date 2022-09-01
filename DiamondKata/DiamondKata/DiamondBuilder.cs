@@ -14,6 +14,10 @@ public class DiamondBuilder : IDiamondBuilder
     {
         var upperCase = char.ToUpper(letter);
         var index = Array.IndexOf(alphabet, upperCase);
+        if (index == -1)
+        {
+            throw new ArgumentException("Non-alphabet character provided!");
+        }
 
         var step = 0;
         var result = string.Empty;
@@ -21,7 +25,7 @@ public class DiamondBuilder : IDiamondBuilder
 
         while (step < lineCount)
         {
-            result += (step == 0 ? string.Empty : "\n") + _lineBuilder.BuildLine(upperCase, step);
+            result += (step == 0 ? string.Empty : "\n") + _lineBuilder.BuildLine(upperCase, index, step);
 
             step++;
         }
